@@ -19,3 +19,5 @@ Vue.use(IconsPlugin)
 new Vue({
   render: h => h(App),
 }).$mount('#app')
+
+const Order = require('../models/order-model')

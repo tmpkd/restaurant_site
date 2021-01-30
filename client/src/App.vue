@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import SiteMenu from "@/components/SiteMenu";
-import Main from "@/components/Main";
-import {Title} from "@/title.js"
+import SiteMenu from "./components/SiteMenu";
+import Main from "./components/Main";
+import {Title} from "title"
 
 export default {
   name: 'App',
