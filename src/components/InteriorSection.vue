@@ -1,5 +1,5 @@
 <template>
-  <silent-box :gallery="gallery"></silent-box>
+  <silent-box :gallery="gallery" />
 </template>
 
 <script>
@@ -23,11 +23,11 @@ export default {
         },
         {
           src: "https://avatars.mds.yandex.net/get-altay/998620/2a0000016233c14d2477b041ecc353039c9b/XXXL",
-          thumbnailWidth: '600px'
+          thumbnailWidth: '1200px'
         },
         {
           src: "https://avatars.mds.yandex.net/get-altay/758053/2a0000016233c149b35f6d013cdf685e7010/XXXL",
-          thumbnailWidth: '600px'
+          thumbnailWidth: '1200px'
         },
         {
           src: "https://avatars.mds.yandex.net/get-altay/758053/2a0000016233c14ab39094cb24296cae8fe1/XXXL",

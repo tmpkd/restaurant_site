@@ -15,7 +15,5 @@ export default {
 .about-info {
   height: 100vh;
   text-align: left;
-  justify-content: center;
-  align-items: center;
 }
 </style>
