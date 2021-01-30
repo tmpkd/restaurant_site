@@ -1,17 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <SiteMenu :titles="titles"/>
+    <Main :titles="titles"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SiteMenu from "@/components/SiteMenu";
+import Main from "@/components/Main";
+import {Title} from "@/title.js"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Main,
+    SiteMenu
+  },
+  data: function() {
+    return {
+      titles: [
+        new Title("Welcome", "WelcomeSection"),
+        new Title("About us", "AboutSection"),
+        new Title("Menu", "MenuSection"),
+        new Title("Interior", "InteriorSection"),
+        new Title("Location", "LocationSection")
+      ]
+    };
   }
 }
 </script>
@@ -23,6 +37,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 </style>
