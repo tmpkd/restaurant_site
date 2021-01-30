@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import WelcomeSection from "@/components/WelcomeSection";
 import MenuSection from "@/components/MenuSection"
 import InteriorSection from "@/components/InteriorSection";
 import LocationSection from "@/components/LocationSection";
@@ -18,6 +19,7 @@ import AboutSection from "@/components/AboutSection";
 export default {
   name: "Main",
   components: {
+    WelcomeSection,
     MenuSection,
     InteriorSection,
     LocationSection,

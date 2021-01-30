@@ -16,6 +16,11 @@ export default {
 </script>
 
 <style scoped>
+.iframe-maps {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+}
 .iframe-maps iframe {
   border: none;
   width: 100% !important;

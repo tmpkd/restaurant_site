@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@morioh/v-lightbox": "^1.0.3",
+    "bootstrap": "^4.6.0",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-scroll-snap": "^0.1.10",
     "vue-scrollactive": "^0.9.3",
     "vue-silentbox": "^2.3.2",
