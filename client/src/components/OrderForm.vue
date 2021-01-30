@@ -1,22 +1,21 @@
 <template>
-  <div class="home">
+  <div class="orders-form">
     <form @submit.prevent="sendData">
       <div class="form-control">
         <label for="name">Name</label>
-        <input v-model="name" id="name" type="text">
+        <input v-model="client.name" id="name" pattern="\w+" type="text" required>
       </div>
       <div class="form-control">
-        <label for="email">Email</label>
-        <input v-model="email" id="email" type="email">
+        <label for="phone_number">Phone number</label>
+        <input v-model="client.phone_number" id="phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" type="tel" required><p>Format: 123-456-7890</p>
       </div>
       <div class="form-control">
-        <label for="address">Address</label>
-        <input v-model="address" id="address" type="text">
+        <label for="day">Date</label>
+        <input v-model="info.day" id="day" type="date" required>
       </div>
       <div class="form-control">
-        <label for="gender">Gender</label>
-        <span>Male <input v-model="gender" id="gender" type="radio" value="male"></span>
-        <span>Female <input v-model="gender" id="gender" type="radio" value="female"></span>
+        <label for="table_num">Table number</label>
+        <input v-for="table in free_tables" :key="table" v-model="info.table_num" id="table_num" type="button" :value="table">
       </div>
       <input type="submit" class="send" value="Send">
     </form>
@@ -24,19 +23,26 @@
 </template>
 
 <script>
+import OrdersService from "../services/OrdersService";
+
 export default {
   name: "OrderForm",
   data() {
     return {
-      name: null,
-      email: null,
-      address: null,
-      gender: null
+      client: {
+        name: null,
+        phone_number: null
+      },
+      info: {
+        day: null,
+        table_num: null,
+        persons_count: null
+      }
     }
   },
   methods: {
     sendData() {
-      console.log(this.name, this.email, this.address, this.gender);
+      console.log(this.client, this.info);
     }
   }
 }

@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import WelcomeSection from "@/components/WelcomeSection";
-import MenuSection from "@/components/MenuSection"
-import InteriorSection from "@/components/InteriorSection";
-import LocationSection from "@/components/LocationSection";
-import AboutSection from "@/components/AboutSection";
+import WelcomeSection from "./WelcomeSection";
+import MenuSection from "./MenuSection"
+import InteriorSection from "./InteriorSection";
+import LocationSection from "./LocationSection";
+import AboutSection from "./AboutSection";
 
 export default {
   name: "Main",

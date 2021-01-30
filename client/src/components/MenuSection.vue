@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {Menu, MenuComponent} from "@/menu.js"
+import {Menu, MenuComponent} from "@/../menu"
 import VueScrollSnap from "vue-scroll-snap";
 
 var menu_list = [

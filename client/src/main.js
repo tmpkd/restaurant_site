@@ -1,23 +1,20 @@
 import Vue from 'vue';
 import App from './App.vue';
+import router from './router'
 import VueScrollactive from 'vue-scrollactive';
 import VueSilentbox from 'vue-silentbox';
 import VueScrollSnap from 'vue-scroll-snap';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import '@/plugins/bootstrap'
 
 Vue.config.productionTip = false;
 
 Vue.use(VueScrollactive);
 Vue.use(VueSilentbox);
 Vue.use(VueScrollSnap);
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
-
-const Order = require('../models/order-model')
+  el: '#app',
+  router,
+  template: '<App/>',
+  components: { App }
+})
