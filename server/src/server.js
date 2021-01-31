@@ -1,14 +1,8 @@
 const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
 const morgan = require('morgan')
 
 const app = express()
-app.use(morgan('combined'))
-app.use(bodyParser.json())
-app.use(cors())
-
-const config = require('./config/config')
+app.use(morgan('dev'))
 
 const mongodb_conn_module = require('./mongodbConnModule');
 var db = mongodb_conn_module.connect();
@@ -24,7 +18,7 @@ app.get('/orders', (req, res) => {
     }).sort({_id:-1})
 })
 
-app.post('/create_order', (req, res) => {
+app.post('/orders/create', (req, res) => {
     var db = req.db;
     var client = req.body.client;
     var info = req.body.info;
@@ -82,4 +76,4 @@ app.get('/order/:id', (req, res) => {
     })
 })
 
-app.listen(process.env.PORT || config.port)
+app.listen(process.env.PORT || 5000)

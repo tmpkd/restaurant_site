@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "./node_modules/.bin/vue-cli-service serve",
+    "build": "./node_modules/.bin/vue-cli-service build",
+    "lint": "./node_modules/.bin/vue-cli-service lint"
   },
   "dependencies": {
     "@morioh/v-lightbox": "^1.0.3",
@@ -17,6 +17,7 @@
     "mongoose": "^5.11.14",
     "morgan": "^1.10.0",
     "vue": "^2.6.12",
+    "vue-axios": "^3.2.3",
     "vue-scroll-snap": "^0.1.10",
     "vue-scrollactive": "^0.9.3",
     "vue-silentbox": "^2.3.2",
@@ -26,6 +27,7 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "cors": "^2.8.5",
     "eslint": "^6.7.2",

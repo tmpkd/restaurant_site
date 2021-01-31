@@ -15,7 +15,7 @@
       </div>
       <div class="form-control">
         <label for="table_num">Table number</label>
-        <input v-for="table in free_tables" :key="table" v-model="info.table_num" id="table_num" type="button" :value="table">
+        <input v-for="table in 10" :key="table" v-model="info.table_num" id="table_num" type="button">
       </div>
       <input type="submit" class="send" value="Send">
     </form>
@@ -41,8 +41,17 @@ export default {
     }
   },
   methods: {
-    sendData() {
-      console.log(this.client, this.info);
+    async createOrder () {
+      await OrdersService.createOrder({
+        client: this.client,
+        info: this.info
+      })
+      this.$swal(
+          'Great!',
+          `Your order has been created!`,
+          'success'
+      )
+      this.$router.push({ name: 'Orders' })
     }
   }
 }

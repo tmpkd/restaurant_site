@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import App from "../App";
-import Orders from '../Orders'
-import CreateOrder from '../CreateOrder'
-import EditOrder from '../EditOrder'
+import App from "./App";
+import Orders from './Orders'
+import CreateOrder from './CreateOrder'
+import EditOrder from './EditOrder'
 
 Vue.use(Router)
 

@@ -1,9 +1,8 @@
 var mongoose = require('mongoose');
 
-const config = require('./config/config')
 
 module.exports.connect = function() {
-    mongoose.connect(config.dbUrl, config.dbOptions);
+    mongoose.connect(`mongodb+srv://test_user:${process.env.DB_PASSWORD}@cluster0.a8822.mongodb.net/example_restaurant?retryWrites=true&w=majority`, {useNewUrlParser: true});
     var db = mongoose.connection;
     db.on("error", console.error.bind(console, "connection error"));
     db.once("open", function(callback){
