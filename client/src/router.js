@@ -4,6 +4,7 @@ import App from "./App";
 import Orders from './Orders'
 import CreateOrder from './CreateOrder'
 import EditOrder from './EditOrder'
+import Appp from "@/components/Appp";
 
 Vue.use(Router)
 
@@ -12,23 +13,28 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'App',
-            component: App
-        },
-        {
-          path: '/orders',
-          name: 'Orders',
-          component: Orders
-        },
-        {
-            path: '/orders/create',
-            name: 'CreateOrder',
-            component: CreateOrder
-        },
-        {
-            path: '/orders/:id/edit',
-            name: 'EditOrder',
-            component: EditOrder
+            component: App,
+            children: [
+                {
+                    path: '',
+                    component: Appp
+                },
+                {
+                    path: 'orders/:id/edit',
+                    name: 'EditOrder',
+                    component: EditOrder
+                },
+                {
+                    path: 'orders/create',
+                    name: 'CreateOrder',
+                    component: CreateOrder
+                },
+                {
+                    path: 'orders',
+                    name: 'Orders',
+                    component: Orders,
+                },
+            ],
         }
     ]
 })
