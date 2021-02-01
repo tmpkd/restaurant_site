@@ -11,6 +11,7 @@
     </div>
     <div class="contacts">
       <ul class="contacts">
+        <li><a href="/order/create" target="_self"><i class="fa fa-plus-square" aria-hidden="true"></i></a></li>
         <li><a href="tel:+73431234567" class="tel"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;+7 (343) 123–45–67</a></li>
         <li><a href="https://vk.com/tmpkd/" target="_blank"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
         <li><a href="https://www.instagram.com/tmpkd/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>

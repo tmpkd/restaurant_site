@@ -46,8 +46,8 @@ app.put('/order/:id', (req, res) => {
     Order.findById(req.params.id, function (error, order) {
         if (error) { console.error(error); }
 
-        order.title = req.body.title
-        order.description = req.body.description
+        order.client = req.body.client
+        order.info = req.body.info
         order.save(function (error) {
             if (error) {
                 console.log(error)

@@ -24,7 +24,7 @@
           <td>{{ order.info.creation_time }}</td>
           <td align="center">
             <router-link :to="{ path: `order/${order._id}/edit` }" replace>Edit</router-link> |
-            <a href="" @click="deleteOrder(order._id)">Delete</a>
+            <a href="#" @click="deleteOrder(order._id)">Delete</a>
           </td>
         </tr>
       </table>
