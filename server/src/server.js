@@ -1,8 +1,12 @@
 const express = require('express')
+const cors = require('cors')
 const morgan = require('morgan')
 
-const app = express()
-app.use(morgan('dev'))
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(morgan('combined'));
 
 const mongodb_conn_module = require('./mongodbConnModule');
 var db = mongodb_conn_module.connect();
@@ -10,16 +14,18 @@ var db = mongodb_conn_module.connect();
 var Order = require("../models/order");
 
 app.get('/orders', (req, res) => {
-    Order.find({}, 'title description', function (error, orders) {
+    Order.find(function (error, orders) {
         if (error) { console.error(error); }
+        console.log(orders)
         res.send({
             orders: orders
         })
-    }).sort({_id:-1})
+    })
 })
 
 app.post('/orders/create', (req, res) => {
     var db = req.db;
+    console.log(req.body)
     var client = req.body.client;
     var info = req.body.info;
     var new_order = new Order({

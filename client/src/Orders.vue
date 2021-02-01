@@ -8,12 +8,12 @@
       </div>
       <table>
         <tr>
-          <td>Title</td>
-          <td width="550">Client name</td>
-          <td width="100" align="center">Client phone name</td>
-          <td width="100" align="center">Day</td>
-          <td width="100" align="center">Table number</td>
-          <td width="100" align="center">Persons count</td>
+          <td>Client name</td>
+          <td align="center">Client phone</td>
+          <td align="center">Day</td>
+          <td align="center">Table number</td>
+          <td align="center">Persons count</td>
+          <td align="center">Creation time</td>
         </tr>
         <tr v-for="order in orders" :key="order.info.day">
           <td>{{ order.client.name }}</td>
@@ -21,6 +21,7 @@
           <td>{{ order.info.day }}</td>
           <td>{{ order.info.table_num }}</td>
           <td>{{ order.info.persons_count }}</td>
+          <td>{{ order.info.creation_time }}</td>
           <td align="center">
             <router-link v-bind:to="{ name: 'EditOrder', params: { id: order._id } }">Edit</router-link> |
             <a href="#" @click="deleteOrder(order._id)">Delete</a>
@@ -37,6 +38,7 @@
 
 <script>
 import OrdersService from "./services/OrdersService";
+import swal from "sweetalert";
 
 export default {
   name: "Orders",
@@ -48,11 +50,11 @@ export default {
   methods: {
     async getOrders () {
       const response = await OrdersService.fetchOrders()
+      console.log(response)
       this.orders = response.data.orders
     },
     async deleteOrder (id) {
-      const $this = this
-      $this.$swal({
+      swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         type: 'warning',
@@ -61,10 +63,8 @@ export default {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(function () {
-        OrdersService.deleteOrder(id)
-        $this.$router.go({
-          path: '/orders'
-        })
+        OrdersService.deleteOrder(id);
+        location.reload();
       })
     }
   },

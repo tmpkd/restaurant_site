@@ -17,11 +17,14 @@
     "http-server": "^0.12.3",
     "mongoose": "^5.11.14",
     "morgan": "^1.10.0",
+    "sweetalert": "^2.1.2",
     "vue": "^2.6.12",
     "vue-axios": "^3.2.3",
+    "vue-form-generator": "^2.3.4",
     "vue-scroll-snap": "^0.1.10",
     "vue-scrollactive": "^0.9.3",
     "vue-silentbox": "^2.3.2",
+    "vue-tel-input": "^5.0.3",
     "vue2-google-maps": "^0.10.7"
   },
   "devDependencies": {

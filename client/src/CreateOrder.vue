@@ -1,23 +1,24 @@
 <template>
-  <div class="orders">
-    <h1>Create Order</h1>
-    <div class="form">
-      <div>
+  <div class="orders-form">
+    <form @submit.prevent="createOrder">
+      <div class="form-control">
+        <label for="name">Name</label>
         <input v-model="client.name" id="name" pattern="\w+" type="text" required>
       </div>
-      <div>
-        <input v-model="client.phone_number" id="phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" type="tel" required>
+      <div class="form-control">
+        <label for="phone_number">Phone number</label>
+        <input v-model="client.phone_number" id="phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" type="tel" placeholder="123-456-7890" required>
       </div>
-      <div>
+      <div class="form-control">
+        <label for="day">Date</label>
         <input v-model="info.day" id="day" type="date" required>
       </div>
-      <div>
-        <input v-for="table in 10" :key="table" v-model="info.table_num" id="table_num" type="button">
+      <div class="form-control">
+        <label for="table_num">Table number</label>
+        <input v-for="table in 10" :key="table" id="table_num" type="button" :value="table">
       </div>
-      <div>
-        <button class="create_order_btn" @click="createOrder">Create</button>
-      </div>
-    </div>
+      <input type="submit" class="send" value="Send">
+    </form>
   </div>
 </template>
 

@@ -1,70 +1,116 @@
 <template>
   <div class="orders-form">
-    <form @submit.prevent="sendData">
-      <div class="form-control">
-        <label for="name">Name</label>
-        <input v-model="client.name" id="name" pattern="\w+" type="text" required>
+    <form action="" @submit.prevent="onSubmit">
+      <vue-form-generator :schema="schema" :model="model" :options="formOptions" />
+      <div class="d-flex justify-content-end mt-3 pr-4">
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
       </div>
-      <div class="form-control">
-        <label for="phone_number">Phone number</label>
-        <input v-model="client.phone_number" id="phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" type="tel" required><p>Format: 123-456-7890</p>
-      </div>
-      <div class="form-control">
-        <label for="day">Date</label>
-        <input v-model="info.day" id="day" type="date" required>
-      </div>
-      <div class="form-control">
-        <label for="table_num">Table number</label>
-        <input v-for="table in 10" :key="table" v-model="info.table_num" id="table_num" type="button">
-      </div>
-      <input type="submit" class="send" value="Send">
     </form>
   </div>
 </template>
 
 <script>
 import OrdersService from "../services/OrdersService";
+import VueFormGenerator from "vue-form-generator";
+import { validators } from "vue-form-generator";
+import swal from "sweetalert";
 
 export default {
   name: "OrderForm",
   data() {
     return {
-      client: {
-        name: null,
-        phone_number: null
+      model: {
+        client_name: '',
+        client_phone: '',
+        info_day: Date.now(),
+        info_table_num: 0,
+        info_persons_count: 0
       },
-      info: {
-        day: null,
-        table_num: null,
-        persons_count: null
+      schema: {
+        fields: [
+          {
+            type: 'input',
+            inputType: 'text',
+            label: 'Name',
+            model: 'client_name',
+            placeholder: 'Your name',
+            required: true,
+            validator: validators.string
+          },
+          {
+            type: 'tel-input',
+            label: 'Phone number',
+            model: 'client_phone',
+            required: true
+          },
+          {
+            type: 'input',
+            inputType: 'date',
+            label: 'Order date',
+            model: 'info_day',
+            validator: validators.date,
+            required: true
+          },
+          {
+            type: "input",
+            inputType: "number",
+            label: "Table number",
+            model: "info_table_num",
+            max: 10,
+            value: '',
+            placeholder: 0,
+            required: true,
+            validator: validators.number
+          },
+          {
+            type: "input",
+            inputType: "number",
+            label: "Persons count",
+            model: "info_persons_count",
+            max: 4,
+            value: '',
+            placeholder: 0,
+            required: true,
+            validator: validators.number
+          }
+        ]
+      },
+      formOptions: {
+        validateAfterLoad: true,
+        validateAfterChanged: true,
+        validateAsync: true
       }
     }
   },
+  components: {
+    "vue-form-generator": VueFormGenerator.component
+  },
   methods: {
-    async createOrder () {
+    async onSubmit () {
+      console.log(this.model)
       await OrdersService.createOrder({
-        client: this.client,
-        info: this.info
+        client: {
+          name: this.model.client_name,
+          phone_number: this.model.client_phone
+        },
+        info: {
+          day: this.model.info_day,
+          table_num: this.model.info_table_num,
+          persons_count: this.model.info_persons_count,
+          creation_time: Date.now()
+        }
       })
-      this.$swal(
+      await swal(
           'Great!',
           `Your order has been created!`,
           'success'
       )
-      this.$router.push({ name: 'Orders' })
+      location.reload();
     }
   }
 }
 </script>
 
 <style scoped>
-.form-control {
-  padding: 5px;
-}
-.form-control label {
-  display: block;
-}
-.send {
-  margin: 5px
-}
+
 </style>
