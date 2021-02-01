@@ -6,18 +6,18 @@ export default {
     },
 
     createOrder (params) {
-        return Api().post('orders/create', params)
+        return Api().post('order/create', params)
     },
 
     updateOrder (params) {
-        return Api().put('orders/' + params.id, params)
+        return Api().put('order/' + params.id, params)
     },
 
     getOrder (params) {
-        return Api().get('orders/' + params.id)
+        return Api().get('order/' + params.id)
     },
 
     deleteOrder (id) {
-        return Api().delete('orders/' + id)
+        return Api().delete('order/' + id)
     }
 }

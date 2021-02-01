@@ -1,18 +1,13 @@
 <template>
   <div class="orders-form">
-    <form action="" @submit.prevent="onSubmit">
-      <vue-form-generator :schema="schema" :model="model" :options="formOptions" />
-      <div class="d-flex justify-content-end mt-3 pr-4">
-        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-      </div>
-    </form>
+    <vue-form-generator :schema="schema" :model="model" :options="formOptions" />
   </div>
 </template>
 
 <script>
-import OrdersService from "../services/OrdersService";
 import VueFormGenerator from "vue-form-generator";
 import { validators } from "vue-form-generator";
+import OrdersService from "@/services/OrdersService";
 import swal from "sweetalert";
 
 export default {
@@ -20,11 +15,16 @@ export default {
   data() {
     return {
       model: {
-        client_name: '',
-        client_phone: '',
-        info_day: Date.now(),
-        info_table_num: 0,
-        info_persons_count: 0
+        client: {
+          name: null,
+          phone_number: null
+        },
+        info: {
+          day: new Date(Date.now()).setHours(0, 0, 0,0),
+          table_num: null,
+          persons_count: null,
+          creation_time: Date.now()
+        }
       },
       schema: {
         fields: [
@@ -32,7 +32,7 @@ export default {
             type: 'input',
             inputType: 'text',
             label: 'Name',
-            model: 'client_name',
+            model: 'client.name',
             placeholder: 'Your name',
             required: true,
             validator: validators.string
@@ -40,14 +40,14 @@ export default {
           {
             type: 'tel-input',
             label: 'Phone number',
-            model: 'client_phone',
+            model: 'client.phone_number',
             required: true
           },
           {
             type: 'input',
             inputType: 'date',
             label: 'Order date',
-            model: 'info_day',
+            model: 'info.day',
             validator: validators.date,
             required: true
           },
@@ -55,7 +55,8 @@ export default {
             type: "input",
             inputType: "number",
             label: "Table number",
-            model: "info_table_num",
+            model: "info.table_num",
+            min: 1,
             max: 10,
             value: '',
             placeholder: 0,
@@ -66,17 +67,53 @@ export default {
             type: "input",
             inputType: "number",
             label: "Persons count",
-            model: "info_persons_count",
+            model: "info.persons_count",
+            min: 1,
             max: 4,
             value: '',
             placeholder: 0,
             required: true,
             validator: validators.number
+          },
+          {
+            type: "submit",
+            buttonText: "Submit",
+            validateBeforeSubmit: true,
+            async onSubmit(model) {
+              console.log(model)
+              console.log(window)
+              console.log(window.is_editing)
+              if (window.is_editing) {
+                await OrdersService.updateOrder({
+                  id: window.params_id,
+                  client: model.client,
+                  info: model.info
+                })
+                await swal(
+                    'Great!',
+                    `Your order has been updated!`,
+                    'success'
+                )
+                await window.router.push("/orders")
+              }
+              else {
+                await OrdersService.createOrder({
+                  client: model.client,
+                  info: model.info
+                })
+                await swal(
+                    'Great!',
+                    `Your order has been created!`,
+                    'success'
+                )
+                await window.router.push("/")
+              }
+            }
           }
         ]
       },
       formOptions: {
-        validateAfterLoad: true,
+        validateAfterLoad: false,
         validateAfterChanged: true,
         validateAsync: true
       }
@@ -85,28 +122,23 @@ export default {
   components: {
     "vue-form-generator": VueFormGenerator.component
   },
+  mounted () {
+    window.router = this.$router
+    if (this.$route.params.id !== undefined) this.getOrder()
+  },
   methods: {
-    async onSubmit () {
-      console.log(this.model)
-      await OrdersService.createOrder({
-        client: {
-          name: this.model.client_name,
-          phone_number: this.model.client_phone
-        },
-        info: {
-          day: this.model.info_day,
-          table_num: this.model.info_table_num,
-          persons_count: this.model.info_persons_count,
-          creation_time: Date.now()
-        }
+    async getOrder() {
+      const response = await OrdersService.getOrder({
+        id: this.$route.params.id
       })
-      await swal(
-          'Great!',
-          `Your order has been created!`,
-          'success'
-      )
-      location.reload();
+      this.model.client = response.data.client
+      this.model.info = response.data.info
+      window.is_editing = true
+      window.params_id = this.$route.params.id
     }
+  },
+  beforeMount() {
+    console.log(this.params)
   }
 }
 </script>

@@ -15,16 +15,16 @@
           <td align="center">Persons count</td>
           <td align="center">Creation time</td>
         </tr>
-        <tr v-for="order in orders" :key="order.info.day">
+        <tr v-for="order in orders" :key="order._id">
           <td>{{ order.client.name }}</td>
           <td>{{ order.client.phone_number }}</td>
-          <td>{{ order.info.day }}</td>
+          <td>{{ new Date(Date.parse(order.info.day)).toDateString() }}</td>
           <td>{{ order.info.table_num }}</td>
           <td>{{ order.info.persons_count }}</td>
           <td>{{ order.info.creation_time }}</td>
           <td align="center">
-            <router-link v-bind:to="{ name: 'EditOrder', params: { id: order._id } }">Edit</router-link> |
-            <a href="#" @click="deleteOrder(order._id)">Delete</a>
+            <router-link :to="{ path: `order/${order._id}/edit` }" replace>Edit</router-link> |
+            <a href="" @click="deleteOrder(order._id)">Delete</a>
           </td>
         </tr>
       </table>

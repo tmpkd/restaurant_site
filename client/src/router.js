@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Orders from './Orders'
 // import CreateOrder from './CreateOrder'
-import EditOrder from './EditOrder'
+// import EditOrder from './EditOrder'
 import App from "@/App";
 import Main from "@/components/Main";
 import OrderForm from "@/components/OrderForm";
@@ -26,14 +26,14 @@ export default new Router({
                     component: Orders,
                 },
                 {
-                    path: 'orders/create',
+                    path: 'order/create',
                     name: 'CreateOrder',
                     component: OrderForm
                 },
                 {
-                    path: 'orders/:id/edit',
+                    path: 'order/:id/edit',
                     name: 'EditOrder',
-                    component: EditOrder
+                    component: OrderForm
                 }
             ]
         }

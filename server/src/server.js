@@ -10,8 +10,7 @@ app.use(morgan('combined'));
 
 const mongodb_conn_module = require('./mongodbConnModule');
 var db = mongodb_conn_module.connect();
-
-var Order = require("../models/order");
+let Order = require("../models/order");
 
 app.get('/orders', (req, res) => {
     Order.find(function (error, orders) {
@@ -23,12 +22,12 @@ app.get('/orders', (req, res) => {
     })
 })
 
-app.post('/orders/create', (req, res) => {
-    var db = req.db;
-    console.log(req.body)
-    var client = req.body.client;
-    var info = req.body.info;
-    var new_order = new Order({
+app.post('/order/create', (req, res) => {
+    let client = req.body.client;
+    let info = req.body.info;
+    console.log(client);
+    console.log(info);
+    let new_order = new Order({
         client: client,
         info: info
     })
@@ -43,9 +42,8 @@ app.post('/orders/create', (req, res) => {
     })
 })
 
-app.put('/orders/:id', (req, res) => {
-    var db = req.db;
-    Order.findById(req.params.id, 'title description', function (error, order) {
+app.put('/order/:id', (req, res) => {
+    Order.findById(req.params.id, function (error, order) {
         if (error) { console.error(error); }
 
         order.title = req.body.title
@@ -61,8 +59,7 @@ app.put('/orders/:id', (req, res) => {
     })
 })
 
-app.delete('/orders/:id', (req, res) => {
-    var db = req.db;
+app.delete('/order/:id', (req, res) => {
     Order.remove({
         _id: req.params.id
     }, function(err, order){
@@ -75,9 +72,10 @@ app.delete('/orders/:id', (req, res) => {
 })
 
 app.get('/order/:id', (req, res) => {
-    var db = req.db;
-    Order.findById(req.params.id, 'title description', function (error, order) {
+    console.log(req.params);
+    Order.findById(req.params.id, function (error, order) {
         if (error) { console.error(error); }
+        console.log(order);
         res.send(order)
     })
 })
